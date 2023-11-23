@@ -6,25 +6,24 @@ async function getUsers(url) {
       studentSelector.innerHTML = "<h1>Student Selector<h1/>";
       var selectList = document.createElement("select");
       selectList.addEventListener("change", getAlbums);
+      
       try {
-      const response = await fetch(url);
-      if (!response.ok) {
-            throw new Error('Network Error.');
-      }
-      const data = await response.json();
-      console.log(data);
-      data.forEach(user => {
-            console.log(user);
-            var option = document.createElement("option");
-            option.value = user['id'];
-            option.text = user['name'];
-            selectList.appendChild(option);
-      });
+            const response = await fetch(url);
+            if (!response.ok) {
+                  throw new Error('Network Error.');
+            }
+            const data = await response.json();
+            console.log(data);
+            data.forEach(user => {
+                  var option = document.createElement("option");
+                  option.value = user['id'];
+                  option.text = user['name'];
+                  selectList.appendChild(option);
+            });
       } catch (error) {
-      console.error('Error:', error);
+            console.error('Error:', error);
       }
       studentSelector.appendChild(selectList);
-
 }
 
 async function getAlbums(evt) {
@@ -34,20 +33,17 @@ async function getAlbums(evt) {
       try {
             const response = await fetch(albums_url);
             if (!response.ok) {
-            throw new Error('Network Error.');
+                  throw new Error('Network Error.');
             }
             const albums = await response.json();
-            console.log(albums);
-
             let tab = 
             "<tr><th>UserID</th><th>ID</th><th>Title</th></tr>";
-      
             albums.forEach(album => {
                   tab += `<tr><td>${album.userId} </td><td>${album.id}</td><td>${album.title}</td> </tr>`;
             });
             document.getElementById("albums").innerHTML = tab;
       } catch (error) {
-        console.error('Error:', error);
+            console.error('Error:', error);
       }
 
 }
